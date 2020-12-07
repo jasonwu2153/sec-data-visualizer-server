@@ -7,7 +7,11 @@ This repository is the backend server for our (Jason Wu, Michael Lewkowicz, Kevi
 - Make sure you have `pipenv` set up on your machine.
 - Edit the contents of `db.py` to match the database you are trying to connect to.
 - Run `pipenv install`.
-- Run `python scraper.py` within a `pipenv shell` (or `pipenv run python scraper.py`).
+- Start a shell instance by running `pipenv shell`.
+- Run `export FLASK_APP=server.py`. This will add the `FLASK_APP` value to your env variables.
+- Run `flask run`. 
+
+After completing the steps above, you should have a server instance running locally on your machine!
 
 #### Key Dependencies
 

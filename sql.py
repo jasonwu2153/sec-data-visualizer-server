@@ -11,7 +11,7 @@ get_top_five_holdings_by_value = '''SELECT holdings.lei,
                                     INNER JOIN legal_entities ON holdings.lei = legal_entities.lei 
                                     WHERE held_by = %s AND units = 'NS'
                                     ORDER BY val_usd DESC
-                                    LIMIT 10;'''
+                                    LIMIT 5;'''
 get_top_five_holdings_by_number_shares = '''SELECT holdings.lei, 
                                                   legal_entities.name,
                                                   legal_entities.title,

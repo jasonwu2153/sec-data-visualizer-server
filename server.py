@@ -49,8 +49,8 @@ def get_holdings_data():
         for row in cursor.fetchall()]
 
     data = {
-        'top_five_by_value': top_ten_by_value_data,
-        'top_five_by_number_shares': top_ten_by_number_shares_data,
+        'top_five_by_value': top_five_by_value_data,
+        'top_five_by_number_shares': top_five_by_number_shares_data,
         'pie_chart_data': pie_chart_data
     }
 

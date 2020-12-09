@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 from db import cnx
 from sql import get_sec_companies_sql, get_top_ten_holdings_by_value, get_top_ten_holdings_by_number_shares, get_pie_chart_holdings_data
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/sec-companies', methods=['GET'])
 def get_sec_companies():
@@ -17,7 +19,7 @@ def get_sec_companies():
         for row in cursor.fetchall()]
 
     cursor.close()
-    return jsonify({ 'data': data })
+    return jsonify(data)
 
 @app.route('/holdings-data', methods=['GET'])
 def get_holdings_data():
@@ -53,5 +55,5 @@ def get_holdings_data():
     }
 
     cursor.close()
-    return jsonify({ 'data' : data })
+    return jsonify(data)
 

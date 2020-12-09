@@ -30,6 +30,6 @@ get_pie_chart_holdings_data = '''SELECT legal_entities.name,
                                         holdings.val_usd
                                  FROM holdings
                                  INNER JOIN legal_entities ON holdings.lei = legal_entities.lei
-                                 WHERE held_by = %s AND units = 'NS'
+                                 WHERE held_by = %s AND units = 'NS' AND holdings.balance > 0 AND holdings.val_usd > 0
                                  ORDER BY val_usd DESC
                                  LIMIT 100;'''

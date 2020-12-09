@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 
 from db import cnx
-from sql import get_sec_companies_sql, get_top_ten_holdings_by_value, get_top_ten_holdings_by_number_shares
+from sql import get_sec_companies_sql, get_top_ten_holdings_by_value, get_top_ten_holdings_by_number_shares, get_pie_chart_holdings_data
 
 app = Flask(__name__)
 
@@ -39,9 +39,17 @@ def get_holdings_data():
     top_ten_by_number_shares_data = [dict(zip(attr_names, row))  
         for row in cursor.fetchall()]
 
+    # pie chart data
+    cursor.execute(get_pie_chart_holdings_data, (cik,))
+    desc = cursor.description
+    attr_names = [attr[0] for attr in desc]
+    pie_chart_data = [dict(zip(attr_names, row))  
+        for row in cursor.fetchall()]
+
     data = {
         'top_ten_by_value': top_ten_by_value_data,
-        'top_ten_by_number_shares': top_ten_by_number_shares_data
+        'top_ten_by_number_shares': top_ten_by_number_shares_data,
+        'pie_chart_data': pie_chart_data
     }
 
     cursor.close()

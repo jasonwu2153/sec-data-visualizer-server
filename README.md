@@ -18,7 +18,7 @@ After completing the steps above, you should have a server instance running loca
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/), Python framework for creating server endpoints
 - [MySQL Python Connector](https://dev.mysql.com/doc/connector-python/en/), Python module for connecting to a MySQL database.
 
-## Contributor
+## Contributors
 - [Jason Wu (Yale University '22)](https://github.com/jasonwu2153)
 - [Kevin Zhang (Yale University '23)](https://github.com/kevinz917)
 - [Michael Lewkowicz (Yale University '23)](https://github.com/MLewkowicz)

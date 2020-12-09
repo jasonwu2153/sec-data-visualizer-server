@@ -31,4 +31,5 @@ get_pie_chart_holdings_data = '''SELECT legal_entities.name,
                                  FROM holdings
                                  INNER JOIN legal_entities ON holdings.lei = legal_entities.lei
                                  WHERE held_by = %s AND units = 'NS'
-                                 ORDER BY val_usd DESC;'''
+                                 ORDER BY val_usd DESC
+                                 LIMIT 100;'''

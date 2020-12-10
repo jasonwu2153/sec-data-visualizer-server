@@ -12,6 +12,7 @@ get_top_five_holdings_by_value = '''SELECT holdings.lei,
                                     WHERE held_by = %s AND units = 'NS'
                                     ORDER BY val_usd DESC
                                     LIMIT 5;'''
+
 get_top_five_holdings_by_number_shares = '''SELECT holdings.lei, 
                                                   legal_entities.name,
                                                   legal_entities.title,
@@ -25,6 +26,7 @@ get_top_five_holdings_by_number_shares = '''SELECT holdings.lei,
                                             WHERE held_by = %s AND units = 'NS'
                                             ORDER BY balance DESC
                                             LIMIT 5;'''
+
 get_pie_chart_holdings_data = '''SELECT legal_entities.name,
                                         holdings.balance,
                                         holdings.val_usd
@@ -33,6 +35,7 @@ get_pie_chart_holdings_data = '''SELECT legal_entities.name,
                                  WHERE held_by = %s AND units = 'NS' AND holdings.balance > 0 AND holdings.val_usd > 0
                                  ORDER BY val_usd DESC
                                  LIMIT 100;'''
+                                 
 get_top_twenty_popular_holdings_by_occurrence = '''SELECT legal_entities.name, 
                                                           legal_entities.title,
                                                           legal_entities.lei,

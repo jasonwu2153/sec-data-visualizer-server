@@ -2,7 +2,11 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 from db import cnx
-from sql import get_sec_companies_sql, get_top_five_holdings_by_value, get_top_five_holdings_by_number_shares, get_pie_chart_holdings_data
+from sql import get_sec_companies_sql, \
+                get_top_five_holdings_by_value, \
+                get_top_five_holdings_by_number_shares, \
+                get_pie_chart_holdings_data, \
+                get_top_twenty_popular_holdings_by_occurrence
 
 app = Flask(__name__)
 CORS(app)
@@ -57,3 +61,18 @@ def get_holdings_data():
     cursor.close()
     return jsonify(data)
 
+
+@app.route('/popular-legal-entities', methods=['GET'])
+def get_legal_entities():
+    'Returns top 20 holdings across all sec companies.'
+    cursor = cnx.cursor()
+
+    # top 20 holdings across all sec_companies
+    cursor.execute(get_top_twenty_popular_holdings_by_occurrence)
+    desc = cursor.description
+    attr_names = [attr[0] for attr in desc]
+    data = [dict(zip(attr_names, row))
+        for row in cursor.fetchall()]
+
+    cursor.close()
+    return jsonify(data)

@@ -68,6 +68,7 @@ def get_legal_entities():
     'Returns top 20 holdings for the company with the requested legal entity.'
     lei = request.args.get('lei')
     cursor = cnx.cursor()
+
     # top 20 holdings per sec_company by share values
     cursor.execute(get_top_twenty_holdings_by_lei, (lei,))
     desc = cursor.description

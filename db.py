@@ -6,6 +6,6 @@ from mysql import connector
 cnx = connector.connect(
     host="localhost",
     user="root",
-    password="",
+    password="Nightpanthers01!",
     database="sec_scrape"
 )

@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 from db import cnx
-from sql import get_sec_companies_sql, get_top_five_holdings_by_value, get_top_five_holdings_by_number_shares, get_pie_chart_holdings_data
+from sql import get_sec_companies_sql, get_top_five_holdings_by_value, get_top_five_holdings_by_number_shares, get_pie_chart_holdings_data, get_top_twenty_holdings_by_lei, get_top_twenty_popular_holdings_across
 
 app = Flask(__name__)
 CORS(app)
@@ -57,3 +57,30 @@ def get_holdings_data():
     cursor.close()
     return jsonify(data)
 
+
+@app.route('/popular-legal-entities', methods=['GET'])
+def get_legal_entities():
+    'Returns top 20 holdings for the company with the requested legal entity.'
+    lei = request.args.get('lei')
+    cursor = cnx.cursor()
+    # top 20 holdings per sec_company by share values
+    cursor.execute(get_top_twenty_holdings_by_lei, (lei,))
+    desc = cursor.description
+    attr_names = [attr[0] for attr in desc]
+    top_twenty_holdings_by_lei = [dict(zip(attr_names, row))
+        for row in cursor.fetchall()]
+
+    # top 20 holdings across all sec_companies
+    cursor.execute(get_top_twenty_popular_holdings_across, (lei,))
+    desc = cursor.description
+    attr_names = [attr[0] for attr in desc]
+    top_twenty_popular_holdings_across = [dict(zip(attr_names, row))
+        for row in cursor.fetchall()]
+
+    data = {
+        'top_20_by_value': top_twenty_holdings_by_lei,
+        'top_20_by_occurance': top_twenty_popular_holdings_across,
+    }
+
+    cursor.close()
+    return jsonify(data)
